@@ -1,0 +1,41 @@
+fwrule / offline firewall analysis
+IPv4 filter built-in chains; single earlier terminal rule coverage
+8 rules | 3 proven unreachable | 2 inconclusive
+
+INPUT #1 / line 6 / no_single_rule_cover
+  [42:2520] -A INPUT -s 192.0.2.0/24 -p tcp --dport 20:100 -j DROP
+  No single earlier rule proves full coverage. Reachability is not established.
+INPUT #2 / line 7 / shadowed_conflicting_action
+  [0:0] -A INPUT -s 192.0.2.128/25 -p tcp --dport 22 -j ACCEPT
+  Rule 1 at line 6 matches every modeled packet of this rule and terminates processing with DROP.
+  Zero-hit observation; collection window unknown. Not removal advice.
+INPUT #3 / line 8 / duplicate
+  [0:0] -A INPUT -s 192.0.2.0/24 -p tcp --dport 20:100 -j DROP
+  Rule 1 at line 6 matches every modeled packet of this rule and terminates processing with DROP.
+  Zero-hit observation; collection window unknown. Not removal advice.
+INPUT #4 / line 9 / partial_overlap
+  [17:1105] -A INPUT -p tcp --dport 80:443 -j ACCEPT
+  Earlier rules overlap this match set. No single-rule full coverage proof was found; combined coverage is not analyzed.
+INPUT #5 / line 10 / shadowed_same_action
+  [0:0] -A INPUT -p tcp --dport 443 -j ACCEPT
+  Rule 4 at line 9 matches every modeled packet of this rule and terminates processing with ACCEPT.
+  Zero-hit observation; collection window unknown. Not removal advice.
+OUTPUT #1 / line 11 / no_single_rule_cover
+  [8:480] -A OUTPUT -p udp --dport 53 -j ACCEPT
+  No single earlier rule proves full coverage. Reachability is not established.
+FORWARD #1 / line 12 / inconclusive
+  [0:0] -A FORWARD -m conntrack --ctstate ESTABLISHED -j ACCEPT
+  Unsupported semantics in this chain prevent structural conclusions.
+  Zero-hit observation; collection window unknown. Not removal advice.
+  Unsupported rule lines: 12
+FORWARD #2 / line 13 / inconclusive
+  [0:0] -A FORWARD -j DROP
+  Unsupported semantics in this chain prevent structural conclusions.
+  Zero-hit observation; collection window unknown. Not removal advice.
+  Unsupported rule lines: 12
+
+Coverage notes:
+- No finding is not proof of reachability or safe removal.
+- Zero counters describe only the exported observation window; duration is unknown.
+- Union coverage, custom-chain flow, NAT, IPv6 and native nftables are not analyzed.
+- Proofs concern arrival at a filter chain; other tables and network paths are outside scope.

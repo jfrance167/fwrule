@@ -1,0 +1,380 @@
+{
+  "schema_version": 1,
+  "scope": "IPv4 filter built-in chains; single earlier terminal rule coverage",
+  "summary": {
+    "total_rules": 8,
+    "proven_unreachable": 3,
+    "inconclusive": 2,
+    "partial_overlap": 1,
+    "zero_hit_observations": 5
+  },
+  "warnings": [],
+  "results": [
+    {
+      "rule": {
+        "chain": "INPUT",
+        "number": 1,
+        "line": 6,
+        "raw": "[42:2520] -A INPUT -s 192.0.2.0/24 -p tcp --dport 20:100 -j DROP",
+        "source": [
+          3221225984,
+          3221226239
+        ],
+        "destination": [
+          0,
+          4294967295
+        ],
+        "protocol": "tcp",
+        "sport": [
+          0,
+          65535
+        ],
+        "dport": [
+          20,
+          100
+        ],
+        "target": "DROP",
+        "packets": 42,
+        "unsupported": []
+      },
+      "status": "no_single_rule_cover",
+      "explanation": "No single earlier rule proves full coverage. Reachability is not established.",
+      "blocker": null,
+      "overlap_lines": [],
+      "overlap_count": 0,
+      "zero_hit": false
+    },
+    {
+      "rule": {
+        "chain": "INPUT",
+        "number": 2,
+        "line": 7,
+        "raw": "[0:0] -A INPUT -s 192.0.2.128/25 -p tcp --dport 22 -j ACCEPT",
+        "source": [
+          3221226112,
+          3221226239
+        ],
+        "destination": [
+          0,
+          4294967295
+        ],
+        "protocol": "tcp",
+        "sport": [
+          0,
+          65535
+        ],
+        "dport": [
+          22,
+          22
+        ],
+        "target": "ACCEPT",
+        "packets": 0,
+        "unsupported": []
+      },
+      "status": "shadowed_conflicting_action",
+      "explanation": "Rule 1 at line 6 matches every modeled packet of this rule and terminates processing with DROP.",
+      "blocker": {
+        "chain": "INPUT",
+        "number": 1,
+        "line": 6,
+        "raw": "[42:2520] -A INPUT -s 192.0.2.0/24 -p tcp --dport 20:100 -j DROP",
+        "source": [
+          3221225984,
+          3221226239
+        ],
+        "destination": [
+          0,
+          4294967295
+        ],
+        "protocol": "tcp",
+        "sport": [
+          0,
+          65535
+        ],
+        "dport": [
+          20,
+          100
+        ],
+        "target": "DROP",
+        "packets": 42,
+        "unsupported": []
+      },
+      "overlap_lines": [],
+      "overlap_count": 0,
+      "zero_hit": true
+    },
+    {
+      "rule": {
+        "chain": "INPUT",
+        "number": 3,
+        "line": 8,
+        "raw": "[0:0] -A INPUT -s 192.0.2.0/24 -p tcp --dport 20:100 -j DROP",
+        "source": [
+          3221225984,
+          3221226239
+        ],
+        "destination": [
+          0,
+          4294967295
+        ],
+        "protocol": "tcp",
+        "sport": [
+          0,
+          65535
+        ],
+        "dport": [
+          20,
+          100
+        ],
+        "target": "DROP",
+        "packets": 0,
+        "unsupported": []
+      },
+      "status": "duplicate",
+      "explanation": "Rule 1 at line 6 matches every modeled packet of this rule and terminates processing with DROP.",
+      "blocker": {
+        "chain": "INPUT",
+        "number": 1,
+        "line": 6,
+        "raw": "[42:2520] -A INPUT -s 192.0.2.0/24 -p tcp --dport 20:100 -j DROP",
+        "source": [
+          3221225984,
+          3221226239
+        ],
+        "destination": [
+          0,
+          4294967295
+        ],
+        "protocol": "tcp",
+        "sport": [
+          0,
+          65535
+        ],
+        "dport": [
+          20,
+          100
+        ],
+        "target": "DROP",
+        "packets": 42,
+        "unsupported": []
+      },
+      "overlap_lines": [],
+      "overlap_count": 0,
+      "zero_hit": true
+    },
+    {
+      "rule": {
+        "chain": "INPUT",
+        "number": 4,
+        "line": 9,
+        "raw": "[17:1105] -A INPUT -p tcp --dport 80:443 -j ACCEPT",
+        "source": [
+          0,
+          4294967295
+        ],
+        "destination": [
+          0,
+          4294967295
+        ],
+        "protocol": "tcp",
+        "sport": [
+          0,
+          65535
+        ],
+        "dport": [
+          80,
+          443
+        ],
+        "target": "ACCEPT",
+        "packets": 17,
+        "unsupported": []
+      },
+      "status": "partial_overlap",
+      "explanation": "Earlier rules overlap this match set. No single-rule full coverage proof was found; combined coverage is not analyzed.",
+      "blocker": null,
+      "overlap_lines": [
+        6,
+        8
+      ],
+      "overlap_count": 2,
+      "zero_hit": false
+    },
+    {
+      "rule": {
+        "chain": "INPUT",
+        "number": 5,
+        "line": 10,
+        "raw": "[0:0] -A INPUT -p tcp --dport 443 -j ACCEPT",
+        "source": [
+          0,
+          4294967295
+        ],
+        "destination": [
+          0,
+          4294967295
+        ],
+        "protocol": "tcp",
+        "sport": [
+          0,
+          65535
+        ],
+        "dport": [
+          443,
+          443
+        ],
+        "target": "ACCEPT",
+        "packets": 0,
+        "unsupported": []
+      },
+      "status": "shadowed_same_action",
+      "explanation": "Rule 4 at line 9 matches every modeled packet of this rule and terminates processing with ACCEPT.",
+      "blocker": {
+        "chain": "INPUT",
+        "number": 4,
+        "line": 9,
+        "raw": "[17:1105] -A INPUT -p tcp --dport 80:443 -j ACCEPT",
+        "source": [
+          0,
+          4294967295
+        ],
+        "destination": [
+          0,
+          4294967295
+        ],
+        "protocol": "tcp",
+        "sport": [
+          0,
+          65535
+        ],
+        "dport": [
+          80,
+          443
+        ],
+        "target": "ACCEPT",
+        "packets": 17,
+        "unsupported": []
+      },
+      "overlap_lines": [],
+      "overlap_count": 0,
+      "zero_hit": true
+    },
+    {
+      "rule": {
+        "chain": "OUTPUT",
+        "number": 1,
+        "line": 11,
+        "raw": "[8:480] -A OUTPUT -p udp --dport 53 -j ACCEPT",
+        "source": [
+          0,
+          4294967295
+        ],
+        "destination": [
+          0,
+          4294967295
+        ],
+        "protocol": "udp",
+        "sport": [
+          0,
+          65535
+        ],
+        "dport": [
+          53,
+          53
+        ],
+        "target": "ACCEPT",
+        "packets": 8,
+        "unsupported": []
+      },
+      "status": "no_single_rule_cover",
+      "explanation": "No single earlier rule proves full coverage. Reachability is not established.",
+      "blocker": null,
+      "overlap_lines": [],
+      "overlap_count": 0,
+      "zero_hit": false
+    },
+    {
+      "rule": {
+        "chain": "FORWARD",
+        "number": 1,
+        "line": 12,
+        "raw": "[0:0] -A FORWARD -m conntrack --ctstate ESTABLISHED -j ACCEPT",
+        "source": [
+          0,
+          4294967295
+        ],
+        "destination": [
+          0,
+          4294967295
+        ],
+        "protocol": "all",
+        "sport": [
+          0,
+          65535
+        ],
+        "dport": [
+          0,
+          65535
+        ],
+        "target": "",
+        "packets": 0,
+        "unsupported": [
+          "unmodeled syntax",
+          "unmodeled target or control flow",
+          "unmodeled match module"
+        ]
+      },
+      "status": "inconclusive",
+      "explanation": "Unsupported semantics in this chain prevent structural conclusions.",
+      "blocker": null,
+      "overlap_lines": [],
+      "overlap_count": 0,
+      "zero_hit": true,
+      "barrier_lines": [
+        12
+      ]
+    },
+    {
+      "rule": {
+        "chain": "FORWARD",
+        "number": 2,
+        "line": 13,
+        "raw": "[0:0] -A FORWARD -j DROP",
+        "source": [
+          0,
+          4294967295
+        ],
+        "destination": [
+          0,
+          4294967295
+        ],
+        "protocol": "all",
+        "sport": [
+          0,
+          65535
+        ],
+        "dport": [
+          0,
+          65535
+        ],
+        "target": "DROP",
+        "packets": 0,
+        "unsupported": []
+      },
+      "status": "inconclusive",
+      "explanation": "Unsupported semantics in this chain prevent structural conclusions.",
+      "blocker": null,
+      "overlap_lines": [],
+      "overlap_count": 0,
+      "zero_hit": true,
+      "barrier_lines": [
+        12
+      ]
+    }
+  ],
+  "limitations": [
+    "No finding is not proof of reachability or safe removal.",
+    "Zero counters describe only the exported observation window; duration is unknown.",
+    "Union coverage, custom-chain flow, NAT, IPv6 and native nftables are not analyzed.",
+    "Proofs concern arrival at a filter chain; other tables and network paths are outside scope."
+  ]
+}

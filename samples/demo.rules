@@ -1,0 +1,14 @@
+# Synthetic educational rules, not a deployable firewall policy.
+*filter
+:INPUT DROP [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT ACCEPT [0:0]
+[42:2520] -A INPUT -s 192.0.2.0/24 -p tcp --dport 20:100 -j DROP
+[0:0] -A INPUT -s 192.0.2.128/25 -p tcp --dport 22 -j ACCEPT
+[0:0] -A INPUT -s 192.0.2.0/24 -p tcp --dport 20:100 -j DROP
+[17:1105] -A INPUT -p tcp --dport 80:443 -j ACCEPT
+[0:0] -A INPUT -p tcp --dport 443 -j ACCEPT
+[8:480] -A OUTPUT -p udp --dport 53 -j ACCEPT
+[0:0] -A FORWARD -m conntrack --ctstate ESTABLISHED -j ACCEPT
+[0:0] -A FORWARD -j DROP
+COMMIT
