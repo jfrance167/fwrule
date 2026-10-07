@@ -1,0 +1,30 @@
+
+# Preserve reviewed snapshot bytes across checkout platforms.
+/.github/workflows/ci.yml -text
+/.github/workflows/codeql.yml -text
+/.gitignore -text
+/CHANGELOG.md -text
+/DECISIONS.md -text
+/LEARNING.md -text
+/LICENSE -text
+/README.md -text
+/REVIEW.md -text
+/SECURITY.md -text
+/STATE.md -text
+/VALIDATION.md -text
+/fwrule/__init__.py -text
+/fwrule/__main__.py -text
+/fwrule/analysis.py -text
+/fwrule/model.py -text
+/fwrule/parser.py -text
+/fwrule/report.py -text
+/plans/successor.md -text
+/requirements-dev.txt -text
+/samples/demo-report.html -text
+/samples/demo-report.json -text
+/samples/demo-report.txt -text
+/samples/demo.rules -text
+/scripts/demo_reports.py -text
+/tests/test_analysis.py -text
+/tests/test_cli.py -text
+/tests/test_parser.py -text
